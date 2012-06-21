@@ -5,8 +5,15 @@ import simplejson
 @csrf_exempt
 def home(request):
     if request.method == 'POST':
-        print "POST!"
-        return HttpResponse("OK\r\n")
+        print request.POST['checkin']
+        try:
+            checkin = simplejson.loads(request.POST['checkin'])
+            print checkin['user']['firstName']
+            print "4sq name captured!"
+            return HttpResponse("OK\r\n")
+        except:
+            print "Name didn't work :-/"
+            return HttpResponse("NOT OK\r\n")
     else:
         print "NOT POST!"
         return HttpResponse("ERR")
